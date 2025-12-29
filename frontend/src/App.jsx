@@ -6,10 +6,13 @@ import DashboardLayout from './layouts/DashboardLayout';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import AboutUs from './pages/AboutUs';
 
 import CitizenDashboard from './pages/CitizenDashboard';
+import MyReports from './pages/MyReports';
 import PoliticianDashboard from './pages/PoliticianDashboard';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminSettings from './pages/AdminSettings';
 import ModeratorDashboard from './pages/ModeratorDashboard';
 
 function ProtectedRoute({ children, role }) {
@@ -29,6 +32,7 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/about" element={<AboutUs />} />
           </Route>
 
           {/* Dashboard Routes - Protected */}
@@ -38,6 +42,7 @@ function App() {
             </ProtectedRoute>
           }>
             <Route index element={<CitizenDashboard />} />
+            <Route path="reports" element={<MyReports />} />
           </Route>
 
           <Route path="/politician" element={
@@ -54,6 +59,7 @@ function App() {
             </ProtectedRoute>
           }>
             <Route index element={<AdminDashboard />} />
+            <Route path="settings" element={<AdminSettings />} />
           </Route>
 
           <Route path="/moderator" element={

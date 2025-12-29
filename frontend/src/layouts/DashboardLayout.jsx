@@ -23,7 +23,7 @@ export default function DashboardLayout({ entries = [] }) {
         flexDirection: 'column'
       }}>
         <Link to="/" style={{ fontSize: '1.25rem', fontWeight: 'bold', color: 'var(--primary)', marginBottom: '2rem', paddingLeft: '0.5rem' }}>
-          SpeakUp
+          CiviConnect
         </Link>
 
         {user && (

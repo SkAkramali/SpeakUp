@@ -1,4 +1,5 @@
 import { Outlet, Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 export default function MainLayout() {
   return (
@@ -10,9 +11,10 @@ export default function MainLayout() {
       }}>
         <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Link to="/" style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--primary)' }}>
-            SpeakUp
+            CiviConnect
           </Link>
-          <nav style={{ display: 'flex', gap: '1rem' }}>
+          <nav style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+            <Link to="/about" style={{ color: 'var(--text-muted)' }}>About Us</Link>
             <Link to="/login" className="btn" style={{ color: 'var(--text-muted)' }}>Login</Link>
             <Link to="/register" className="btn btn-primary">Get Started</Link>
           </nav>
@@ -23,16 +25,7 @@ export default function MainLayout() {
         <Outlet />
       </main>
 
-      <footer style={{
-        backgroundColor: 'var(--surface)',
-        borderTop: '1px solid var(--border)',
-        padding: '2rem 0',
-        marginTop: 'auto'
-      }}>
-        <div className="container" style={{ textAlign: 'center', color: 'var(--text-muted)' }}>
-          <p>&copy; {new Date().getFullYear()} SpeakUp. All rights reserved.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

@@ -10,6 +10,7 @@ import AboutUs from './pages/AboutUs';
 
 import CitizenDashboard from './pages/CitizenDashboard';
 import MyReports from './pages/MyReports';
+import Updates from './pages/Updates';
 import PoliticianDashboard from './pages/PoliticianDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminSettings from './pages/AdminSettings';
@@ -38,11 +39,16 @@ function App() {
           {/* Dashboard Routes - Protected */}
           <Route path="/citizen" element={
             <ProtectedRoute role="citizen">
-              <DashboardLayout entries={[{ label: 'Home', path: '/citizen' }, { label: 'My Reports', path: '/citizen/reports' }]} />
+              <DashboardLayout entries={[
+                { label: 'Home', path: '/citizen' }, 
+                { label: 'My Reports', path: '/citizen/reports' },
+                { label: 'Updates', path: '/citizen/updates' }
+              ]} />
             </ProtectedRoute>
           }>
             <Route index element={<CitizenDashboard />} />
             <Route path="reports" element={<MyReports />} />
+            <Route path="updates" element={<Updates />} />
           </Route>
 
           <Route path="/politician" element={

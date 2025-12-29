@@ -29,7 +29,11 @@ export default function PoliticianDashboard() {
     <div>
       <h2 style={{ marginBottom: '1.5rem', color: 'var(--primary)' }}>Representative Dashboard</h2>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '2rem' }}>
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: window.innerWidth > 768 ? '2fr 1fr' : '1fr',
+        gap: '2rem' 
+      }} className="responsive-grid-2">
         {/* Left: Citizen Issues to Review */}
         <div>
           <h3 style={{ marginBottom: '1rem', color: 'var(--text-muted)' }}>Citizen Issues</h3>

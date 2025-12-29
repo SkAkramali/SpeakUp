@@ -83,3 +83,187 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: var(--shadow-sm);
   padding: 1.5rem;
 }
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+  
+  h1 {
+    font-size: 2.5rem !important;
+  }
+  
+  h2 {
+    font-size: 2rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  h1 {
+    font-size: 2rem !important;
+  }
+  
+  h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  .btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+  }
+  
+  .card {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  h1 {
+    font-size: 1.75rem !important;
+  }
+  
+  h2 {
+    font-size: 1.25rem !important;
+  }
+  
+  h3 {
+    font-size: 1.1rem !important;
+  }
+  
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .card {
+    padding: 0.875rem;
+  }
+}
+
+/* Utility Classes for Responsive Grids */
+.responsive-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .responsive-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.responsive-flex {
+  display: flex;
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .responsive-flex {
+    flex-direction: column;
+  }
+  
+  .mobile-menu-btn {
+    display: block !important;
+  }
+  
+  .nav-menu {
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch !important;
+  }
+  
+  .nav-menu a,
+  .nav-menu .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Dashboard Layout Responsive */
+@media (max-width: 768px) {
+  aside {
+    width: 200px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .mobile-sidebar-btn {
+    display: block !important;
+  }
+  
+  aside {
+    position: fixed !important;
+    left: -250px;
+    top: 0;
+    height: 100vh;
+    z-index: 1000;
+    transition: left 0.3s;
+    width: 250px !important;
+  }
+  
+  aside.mobile-open {
+    left: 0 !important;
+  }
+  
+  main {
+    padding: 1rem !important;
+    width: 100% !important;
+  }
+}
+
+/* Landing Page Responsive */
+@media (max-width: 768px) {
+  section {
+    padding: 3rem 0 !important;
+  }
+}
+
+@media (max-width: 640px) {
+  section {
+    padding: 2rem 0 !important;
+  }
+}
+
+/* Grid responsiveness */
+.responsive-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .responsive-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .responsive-grid-2 {
+    gap: 1rem;
+  }
+}
+
+/* Table Responsive */
+@media (max-width: 768px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+/* Footer Responsive */
+@media (max-width: 640px) {
+  footer > div > div {
+    grid-template-columns: 1fr !important;
+    text-align: center;
+  }
+}

@@ -170,7 +170,7 @@ export default function CitizenDashboard() {
         ))}
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }} className="responsive-grid-2">
         {/* Left Column: Feed */}
         <div>
           {filteredIssues.length === 0 ? (

@@ -26,7 +26,7 @@ function ProtectedRoute({ children, role }) {
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/SpeakUp">
         <Routes>
           {/* Public Routes */}
           <Route element={<MainLayout />}>

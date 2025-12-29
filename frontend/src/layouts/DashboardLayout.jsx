@@ -8,6 +8,7 @@ export default function DashboardLayout({ entries = [] }) {
   const navigate = useNavigate();
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Mock notifications based on role
   const notifications = user?.role === 'politician' || user?.role === 'moderator' ? [
@@ -28,7 +29,47 @@ export default function DashboardLayout({ entries = [] }) {
   };
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: 'var(--background)' }}>
+    <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: 'var(--background)', position: 'relative' }}>
+      {/* Mobile Menu Button */}
+      <button
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        style={{
+          position: 'fixed',
+          top: '1rem',
+          left: '1rem',
+          zIndex: 1001,
+          padding: '0.5rem',
+          backgroundColor: 'var(--primary)',
+          color: 'white',
+          border: 'none',
+          borderRadius: 'var(--radius-md)',
+          fontSize: '1.5rem',
+          lineHeight: 1,
+          cursor: 'pointer',
+          display: 'none'
+        }}
+        className="mobile-sidebar-btn"
+      >
+        ☰
+      </button>
+
+      {/* Mobile Overlay */}
+      {sidebarOpen && (
+        <div 
+          onClick={() => setSidebarOpen(false)}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            zIndex: 999
+          }}
+          className="mobile-overlay"
+        />
+      )}
+
       {/* Sidebar */}
       <aside style={{
         width: '240px',
@@ -36,8 +77,10 @@ export default function DashboardLayout({ entries = [] }) {
         borderRight: '1px solid var(--border)',
         padding: '1.5rem 1rem',
         display: 'flex',
-        flexDirection: 'column'
-      }}>
+        flexDirection: 'column',
+        zIndex: 1000,
+        position: 'relative'
+      }} className={sidebarOpen ? 'mobile-open' : ''}>
         <Link to="/" style={{ fontSize: '1.25rem', fontWeight: 'bold', color: 'var(--primary)', marginBottom: '2rem', paddingLeft: '0.5rem' }}>
           CiviConnect
         </Link>

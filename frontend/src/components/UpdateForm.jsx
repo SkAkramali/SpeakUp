@@ -11,8 +11,11 @@ export default function UpdateForm({ onSubmit }) {
   };
 
   return (
-    <div className="card" style={{ marginBottom: '2rem', borderLeft: '4px solid var(--primary)' }}>
-      <h3 style={{ marginBottom: '1rem' }}>Post Official Update</h3>
+    <div className="card" style={{ marginBottom: '2rem', borderLeft: '4px solid var(--primary)', position: 'sticky', top: '1rem' }}>
+      <h3 style={{ marginBottom: '0.5rem', fontSize: 'clamp(1rem, 2.5vw, 1.25rem)' }}>📢 Post Official Update</h3>
+      <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>
+        Keep citizens informed about actions taken on issues
+      </p>
       <form onSubmit={handleSubmit}>
         <textarea
           placeholder="Share an update with your constituents..."

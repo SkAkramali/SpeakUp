@@ -267,3 +267,173 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
   }
 }
+
+/* Tab Navigation Responsive */
+.tab-navigation {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tab-navigation::-webkit-scrollbar {
+  height: 4px;
+}
+
+.tab-navigation::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+  .tab-navigation {
+    flex-wrap: nowrap;
+    padding-bottom: 0.5rem;
+  }
+  
+  .tab-navigation button {
+    white-space: nowrap;
+    font-size: 0.9rem !important;
+    padding: 0.6rem 1rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .tab-navigation button {
+    font-size: 0.85rem !important;
+    padding: 0.5rem 0.75rem !important;
+  }
+  
+  .tab-navigation button span {
+    font-size: 0.75rem !important;
+  }
+}
+
+/* Card Grid Responsive */
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .analytics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  
+  .analytics-grid .card {
+    padding: 1rem !important;
+  }
+  
+  .analytics-grid .card > div:first-child {
+    font-size: 0.75rem !important;
+  }
+  
+  .analytics-grid .card > div:nth-child(2) {
+    font-size: 2rem !important;
+  }
+}
+
+/* Form Responsive */
+@media (max-width: 640px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  textarea,
+  select {
+    font-size: 16px !important; /* Prevents zoom on iOS */
+  }
+  
+  .btn {
+    font-size: 16px !important;
+  }
+}
+
+/* Mobile-specific utilities */
+.mobile-hidden {
+  display: block;
+}
+
+.mobile-visible {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .mobile-hidden {
+    display: none;
+  }
+  
+  .mobile-visible {
+    display: block;
+  }
+}
+
+/* Improved spacing for mobile */
+@media (max-width: 640px) {
+  .card + .card {
+    margin-top: 1rem;
+  }
+  
+  h2, h3 {
+    margin-bottom: 1rem !important;
+  }
+}
+
+/* Touch-friendly buttons */
+@media (max-width: 768px) {
+  button, .btn, a {
+    min-height: 44px; /* iOS recommended minimum touch target */
+    min-width: 44px;
+  }
+}
+
+/* Sticky positioning adjustments for mobile */
+@media (max-width: 768px) {
+  .card[style*="position: sticky"] {
+    position: static !important;
+  }
+}
+
+/* Better form inputs on mobile */
+@media (max-width: 640px) {
+  input, textarea, select {
+    width: 100% !important;
+  }
+}
+
+/* Improved card spacing on mobile */
+@media (max-width: 640px) {
+  .card {
+    margin-bottom: 1rem !important;
+  }
+}
+
+/* Better text readability */
+body {
+  font-size: clamp(14px, 2vw, 16px);
+}
+
+h1 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+}
+
+h3 {
+  font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus visible for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}

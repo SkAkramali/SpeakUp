@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import MainLayout from './layouts/MainLayout';
 import DashboardLayout from './layouts/DashboardLayout';
+import ErrorBoundary from './components/ErrorBoundary';
 
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
@@ -25,9 +26,10 @@ function ProtectedRoute({ children, role }) {
 
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter basename="/SpeakUp">
-        <Routes>
+    <ErrorBoundary>
+      <AuthProvider>
+        <BrowserRouter basename="/SpeakUp">
+          <Routes>
           {/* Public Routes */}
           <Route element={<MainLayout />}>
             <Route path="/" element={<LandingPage />} />
@@ -57,6 +59,7 @@ function App() {
             </ProtectedRoute>
           }>
             <Route index element={<PoliticianDashboard />} />
+            <Route path="updates" element={<Updates />} />
           </Route>
 
           <Route path="/admin" element={
@@ -79,6 +82,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </AuthProvider>
+    </ErrorBoundary>
   );
 }
 

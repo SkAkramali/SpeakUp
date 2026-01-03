@@ -108,6 +108,7 @@ export default function DashboardLayout({ entries = [] }) {
             <Link
               key={entry.path}
               to={entry.path}
+              onClick={() => setSidebarOpen(false)}
               style={{
                 padding: '0.75rem 1rem',
                 borderRadius: 'var(--radius-md)',
@@ -143,6 +144,14 @@ export default function DashboardLayout({ entries = [] }) {
 }
 
 function Header({ user, notifications, unreadCount, showNotifications, setShowNotifications, showProfile, setShowProfile }) {
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   const formatTime = (timestamp) => {
     const diff = Date.now() - timestamp;
     const hours = Math.floor(diff / 3600000);
@@ -157,7 +166,8 @@ function Header({ user, notifications, unreadCount, showNotifications, setShowNo
       justifyContent: 'flex-end', 
       alignItems: 'center',
       marginBottom: '2rem',
-      gap: '1rem'
+      gap: 'clamp(0.5rem, 2vw, 1rem)',
+      flexWrap: 'wrap'
     }}>
       {/* Notifications */}
       <div style={{ position: 'relative' }}>
@@ -172,8 +182,8 @@ function Header({ user, notifications, unreadCount, showNotifications, setShowNo
             backgroundColor: 'var(--surface)',
             border: '1px solid var(--border)',
             borderRadius: '50%',
-            width: '40px',
-            height: '40px',
+            width: 'clamp(36px, 8vw, 40px)',
+            height: 'clamp(36px, 8vw, 40px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -182,8 +192,9 @@ function Header({ user, notifications, unreadCount, showNotifications, setShowNo
           }}
           onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'var(--background)'}
           onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'var(--surface)'}
+          aria-label="Notifications"
         >
-          <span style={{ fontSize: '1.2rem' }}>🔔</span>
+          <span style={{ fontSize: 'clamp(1rem, 2.5vw, 1.2rem)' }}>🔔</span>
           {unreadCount > 0 && (
             <span style={{
               position: 'absolute',
@@ -210,6 +221,7 @@ function Header({ user, notifications, unreadCount, showNotifications, setShowNo
             top: '50px',
             right: '0',
             width: '350px',
+            maxWidth: 'calc(100vw - 2rem)',
             maxHeight: '400px',
             overflowY: 'auto',
             backgroundColor: 'var(--surface)',
@@ -293,8 +305,8 @@ function Header({ user, notifications, unreadCount, showNotifications, setShowNo
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '0.75rem',
-            padding: '0.5rem 1rem',
+            gap: 'clamp(0.5rem, 1.5vw, 0.75rem)',
+            padding: 'clamp(0.4rem, 1vw, 0.5rem) clamp(0.75rem, 2vw, 1rem)',
             backgroundColor: 'var(--surface)',
             border: '1px solid var(--border)',
             borderRadius: 'var(--radius-lg)',
@@ -303,10 +315,11 @@ function Header({ user, notifications, unreadCount, showNotifications, setShowNo
           }}
           onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'var(--background)'}
           onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'var(--surface)'}
+          aria-label="Profile menu"
         >
           <div style={{
-            width: '36px',
-            height: '36px',
+            width: 'clamp(32px, 7vw, 36px)',
+            height: 'clamp(32px, 7vw, 36px)',
             borderRadius: '50%',
             backgroundColor: 'var(--primary)',
             color: 'white',
@@ -314,17 +327,18 @@ function Header({ user, notifications, unreadCount, showNotifications, setShowNo
             alignItems: 'center',
             justifyContent: 'center',
             fontWeight: '600',
-            fontSize: '1rem'
+            fontSize: 'clamp(0.9rem, 2vw, 1rem)',
+            flexShrink: 0
           }}>
             {user?.name?.charAt(0).toUpperCase()}
           </div>
-          <div style={{ textAlign: 'left' }}>
-            <div style={{ fontSize: '0.9rem', fontWeight: '500' }}>{user?.name}</div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'capitalize' }}>
+          <div style={{ textAlign: 'left', display: window.innerWidth > 480 ? 'block' : 'none' }}>
+            <div style={{ fontSize: 'clamp(0.85rem, 1.8vw, 0.9rem)', fontWeight: '500' }}>{user?.name}</div>
+            <div style={{ fontSize: 'clamp(0.7rem, 1.5vw, 0.75rem)', color: 'var(--text-muted)', textTransform: 'capitalize' }}>
               {user?.role}
             </div>
           </div>
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>▼</span>
+          <span style={{ fontSize: 'clamp(0.7rem, 1.5vw, 0.8rem)', color: 'var(--text-muted)', display: window.innerWidth > 480 ? 'block' : 'none' }}>▼</span>
         </button>
 
         {/* Profile Dropdown */}
@@ -373,6 +387,7 @@ function Header({ user, notifications, unreadCount, showNotifications, setShowNo
             </button>
             <div style={{ borderTop: '1px solid var(--border)' }}>
               <button
+                onClick={handleLogout}
                 style={{
                   width: '100%',
                   padding: '0.75rem 1rem',

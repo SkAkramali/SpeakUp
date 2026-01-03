@@ -15,13 +15,22 @@ export default function AdminDashboard() {
     { id: 10, name: 'Anna Martinez', role: 'politician', email: 'anna@example.com' }
   ]);
 
+  // Issue tracking state - updates when new issues arrive
+  const [issueStats, setIssueStats] = useState({
+    open: 45,
+    inProgress: 32,
+    resolved: 78,
+    closed: 23
+  });
+
   // Calculate statistics
   const stats = {
     totalUsers: users.length,
     citizens: users.filter(u => u.role === 'citizen').length,
     politicians: users.filter(u => u.role === 'politician').length,
     moderators: users.filter(u => u.role === 'moderator').length,
-    admins: users.filter(u => u.role === 'admin').length
+    admins: users.filter(u => u.role === 'admin').length,
+    totalIssues: issueStats.open + issueStats.inProgress + issueStats.resolved + issueStats.closed
   };
 
   // Chart data
@@ -32,11 +41,12 @@ export default function AdminDashboard() {
     { label: 'Admins', value: stats.admins, color: '#f59e0b' }
   ];
 
+  // Dynamic issue status data - updates when issueStats changes
   const issueStatusData = [
-    { label: 'Open', value: 45, color: '#f59e0b' },
-    { label: 'In Progress', value: 32, color: '#3b82f6' },
-    { label: 'Resolved', value: 78, color: '#10b981' },
-    { label: 'Closed', value: 23, color: '#64748b' }
+    { label: 'Open', value: issueStats.open, color: '#f59e0b' },
+    { label: 'In Progress', value: issueStats.inProgress, color: '#3b82f6' },
+    { label: 'Resolved', value: issueStats.resolved, color: '#10b981' },
+    { label: 'Closed', value: issueStats.closed, color: '#64748b' }
   ];
 
   const monthlyActivityData = [
@@ -52,6 +62,23 @@ export default function AdminDashboard() {
     if (window.confirm('Are you sure you want to delete this user?')) {
       setUsers(users.filter(u => u.id !== id));
     }
+  };
+
+  // Function to handle new issue arrival - updates the chart count
+  const handleNewIssue = () => {
+    setIssueStats(prev => ({
+      ...prev,
+      open: prev.open + 1
+    }));
+  };
+
+  // Function to update issue status - updates the chart
+  const handleStatusChange = (fromStatus, toStatus) => {
+    setIssueStats(prev => ({
+      ...prev,
+      [fromStatus]: Math.max(0, prev[fromStatus] - 1),
+      [toStatus]: prev[toStatus] + 1
+    }));
   };
 
   return (
@@ -145,12 +172,28 @@ export default function AdminDashboard() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <div style={{ fontSize: '0.85rem', color: '#92400e', marginBottom: '0.5rem' }}>
-                Pending Reports
+                Open Issues
               </div>
-              <div style={{ fontSize: '2rem', fontWeight: '700', color: '#78350f' }}>45</div>
+              <div style={{ fontSize: '2rem', fontWeight: '700', color: '#78350f' }}>{issueStats.open}</div>
             </div>
             <div style={{ fontSize: '2.5rem' }}>📋</div>
           </div>
+          <button 
+            onClick={handleNewIssue}
+            style={{
+              marginTop: '0.75rem',
+              padding: '0.5rem 1rem',
+              backgroundColor: '#f59e0b',
+              color: 'white',
+              border: 'none',
+              borderRadius: '0.5rem',
+              cursor: 'pointer',
+              fontSize: '0.85rem',
+              fontWeight: '500'
+            }}
+          >
+            + Simulate New Issue
+          </button>
         </div>
 
         <div className="card" style={{ backgroundColor: '#dbeafe', border: '1px solid #93c5fd' }}>
@@ -169,9 +212,11 @@ export default function AdminDashboard() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <div style={{ fontSize: '0.85rem', color: '#14532d', marginBottom: '0.5rem' }}>
-                Success Rate
+                Resolution Rate
               </div>
-              <div style={{ fontSize: '2rem', fontWeight: '700', color: '#15803d' }}>92%</div>
+              <div style={{ fontSize: '2rem', fontWeight: '700', color: '#15803d' }}>
+                {stats.totalIssues > 0 ? Math.round((issueStats.resolved / stats.totalIssues) * 100) : 0}%
+              </div>
             </div>
             <div style={{ fontSize: '2.5rem' }}>✅</div>
           </div>

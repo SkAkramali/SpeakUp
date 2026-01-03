@@ -9,20 +9,12 @@ import SuggestionForm from '../components/SuggestionForm';
 import SuggestionCard from '../components/SuggestionCard';
 
 export default function CitizenDashboard() {
-  const { user } = useAuth();
+  const { user, sharedIssues, addIssue } = useAuth();
   const [activeTab, setActiveTab] = useState('all');
   const [activeSection, setActiveSection] = useState('issues'); // New: issues, feedback, or suggestions
 
-  // Mock Data with categories
-  const [issues, setIssues] = useState([
-    { id: 1, title: 'Street Light Broken', description: 'The street light on 5th Avenue is flickering.', status: 'Open', category: 'Infrastructure', author: 'Jane Doe', timestamp: Date.now() - 86400000 },
-    { id: 2, title: 'Garbage Collection Delayed', description: 'Trash has not been picked up for 2 weeks.', status: 'In Progress', category: 'Sanitation', author: 'John Smith', timestamp: Date.now() - 172800000 },
-    { id: 3, title: 'Pothole on Main Road', description: 'Large pothole causing accidents.', status: 'Resolved', category: 'Roads', author: 'Sarah Wilson', timestamp: Date.now() - 259200000 },
-    { id: 4, title: 'Water Supply Issue', description: 'No water supply since morning.', status: 'Open', category: 'Water', author: 'Mike Brown', timestamp: Date.now() - 43200000 },
-    { id: 5, title: 'Park Maintenance Required', description: 'Park benches are broken.', status: 'Resolved', category: 'Parks', author: 'Emily Davis', timestamp: Date.now() - 432000000 },
-    { id: 6, title: 'Traffic Signal Not Working', description: 'Signal at junction is malfunctioning.', status: 'In Progress', category: 'Traffic', author: 'David Lee', timestamp: Date.now() - 86400000 },
-    { id: 7, title: 'Drainage Blocked', description: 'Water logging due to blocked drainage.', status: 'Open', category: 'Sanitation', author: 'Anna Kumar', timestamp: Date.now() - 129600000 }
-  ]);
+  // Use shared issues from context - visible across all dashboards
+  const issues = sharedIssues || [];
 
   // Feedback State
   const [feedbacks, setFeedbacks] = useState([
@@ -32,10 +24,10 @@ export default function CitizenDashboard() {
       feedbackType: 'complaint', 
       description: 'Water supply has been irregular for the past week.', 
       location: 'Downtown Area', 
-      author: user.name,
+      author: user?.name || 'Anonymous',
       status: 'Resolved',
       timestamp: Date.now() - 86400000,
-      rating: { rating: 4, review: 'Issue was resolved quickly. Thank you!', ratedBy: user.name }
+      rating: { rating: 4, review: 'Issue was resolved quickly. Thank you!', ratedBy: user?.name || 'Anonymous' }
     },
     { 
       id: 2, 
@@ -43,7 +35,7 @@ export default function CitizenDashboard() {
       feedbackType: 'appreciation', 
       description: 'The new library opening has been excellent for the community.', 
       location: 'City Center', 
-      author: user.name,
+      author: user?.name || 'Anonymous',
       status: 'Open',
       timestamp: Date.now() - 172800000 
     }
@@ -81,21 +73,18 @@ export default function CitizenDashboard() {
   ]);
 
   const handleCreateIssue = (newIssue) => {
-    const issue = {
-      id: Date.now(),
+    // Use shared context to add issue - visible to politicians
+    addIssue({
       ...newIssue,
-      status: 'Open',
-      author: user.name,
-      timestamp: Date.now()
-    };
-    setIssues([issue, ...issues]);
+      author: user?.name || 'Anonymous'
+    });
   };
 
   const handleCreateFeedback = (newFeedback) => {
     const feedback = {
       id: Date.now(),
       ...newFeedback,
-      author: user.name,
+      author: user?.name || 'Anonymous',
       status: 'Open'
     };
     setFeedbacks([feedback, ...feedbacks]);
@@ -111,7 +100,7 @@ export default function CitizenDashboard() {
     const suggestion = {
       id: Date.now(),
       ...newSuggestion,
-      author: user.name
+      author: user?.name || 'Anonymous'
     };
     setSuggestions([suggestion, ...suggestions]);
   };
@@ -156,8 +145,16 @@ export default function CitizenDashboard() {
     { label: 'Sanitation', value: issues.filter(i => i.category === 'Sanitation').length, color: '#10b981' },
     { label: 'Infrastructure', value: issues.filter(i => i.category === 'Infrastructure').length, color: '#f59e0b' },
     { label: 'Parks', value: issues.filter(i => i.category === 'Parks').length, color: '#8b5cf6' },
-    { label: 'Traffic', value: issues.filter(i => i.category === 'Traffic').length, color: '#06b6d4' }
+    { label: 'Traffic', value: issues.filter(i => i.category === 'Traffic').length, color: '#06b6d4' },
+    { label: 'Other', value: issues.filter(i => i.category === 'Other').length, color: '#64748b' }
   ].filter(cat => cat.value > 0);
+
+  // Status statistics - updates when new issues arrive
+  const statusData = [
+    { label: 'Open', value: stats.open, color: '#f59e0b' },
+    { label: 'In Progress', value: stats.inProgress, color: '#3b82f6' },
+    { label: 'Resolved', value: stats.solved, color: '#10b981' }
+  ];
 
   // Filter issues based on active tab
   const filteredIssues = issues.filter(issue => {
@@ -285,12 +282,25 @@ export default function CitizenDashboard() {
             </div>
           </div>
 
-          {/* Category Chart */}
-          {categoryData.length > 0 && (
-            <div className="card" style={{ marginBottom: '2rem' }}>
-              <BarChart data={categoryData} title="Issues by Category" height={200} />
+          {/* Charts Grid - Updates when new issues arrive */}
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', 
+            gap: '1.5rem',
+            marginBottom: '2rem'
+          }}>
+            {/* Category Chart */}
+            {categoryData.length > 0 && (
+              <div className="card">
+                <BarChart data={categoryData} title="Issues by Category" height={200} />
+              </div>
+            )}
+
+            {/* Status Chart */}
+            <div className="card">
+              <BarChart data={statusData} title="Issues by Status" height={200} />
             </div>
-          )}
+          </div>
 
           {/* Tabs */}
           <div className="tab-navigation" style={{ 

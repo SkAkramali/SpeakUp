@@ -3,9 +3,12 @@ export default function LandingPage() {
     <div style={{ background: 'linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)' }}>
       {/* Hero Section */}
       <section style={{ 
-        padding: '6rem 0 4rem',
+        padding: 'clamp(2rem, 6vw, 4rem) 0 clamp(2rem, 5vw, 3rem)',
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        minHeight: '70vh',
+        display: 'flex',
+        alignItems: 'center'
       }}>
         {/* Background decorative elements */}
         <div style={{
@@ -16,7 +19,8 @@ export default function LandingPage() {
           height: '500px',
           background: 'radial-gradient(circle, rgba(79, 70, 229, 0.1) 0%, transparent 70%)',
           borderRadius: '50%',
-          filter: 'blur(60px)'
+          filter: 'blur(60px)',
+          pointerEvents: 'none'
         }}></div>
         <div style={{
           position: 'absolute',
@@ -26,14 +30,16 @@ export default function LandingPage() {
           height: '400px',
           background: 'radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, transparent 70%)',
           borderRadius: '50%',
-          filter: 'blur(60px)'
+          filter: 'blur(60px)',
+          pointerEvents: 'none'
         }}></div>
 
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <div style={{
             maxWidth: '900px',
             margin: '0 auto',
-            textAlign: 'center'
+            textAlign: 'center',
+            padding: '0 1rem'
           }}>
             {/* Badge */}
             <div style={{
@@ -43,12 +49,12 @@ export default function LandingPage() {
               padding: '0.5rem 1rem',
               backgroundColor: 'rgba(79, 70, 229, 0.1)',
               borderRadius: '50px',
-              marginBottom: '2rem',
+              marginBottom: 'clamp(1rem, 3vw, 2rem)',
               border: '1px solid rgba(79, 70, 229, 0.2)'
             }}>
-              <span style={{ fontSize: '1.2rem' }}>🇮🇳</span>
+              <span style={{ fontSize: 'clamp(1rem, 2.5vw, 1.2rem)' }}>🇮🇳</span>
               <span style={{ 
-                fontSize: '0.9rem', 
+                fontSize: 'clamp(0.8rem, 2vw, 0.9rem)', 
                 fontWeight: '600',
                 color: 'var(--primary)'
               }}>
@@ -58,13 +64,14 @@ export default function LandingPage() {
 
             {/* Main Heading */}
             <h1 style={{ 
-              fontSize: '4rem',
+              fontSize: 'clamp(1.75rem, 6vw, 4rem)',
               fontWeight: '800',
-              lineHeight: '1.1',
-              marginBottom: '1.5rem',
+              lineHeight: '1.2',
+              marginBottom: 'clamp(1rem, 3vw, 1.5rem)',
               background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
               letterSpacing: '-0.02em'
             }}>
               Connect. Report.<br />Transform Your City.
@@ -72,12 +79,13 @@ export default function LandingPage() {
 
             {/* Subheading */}
             <p style={{ 
-              fontSize: '1.25rem',
-              lineHeight: '1.8',
+              fontSize: 'clamp(1rem, 2vw, 1.25rem)',
+              lineHeight: '1.7',
               color: 'var(--text-muted)',
               maxWidth: '700px',
-              margin: '0 auto 3rem',
-              fontWeight: '400'
+              margin: '0 auto 2.5rem',
+              fontWeight: '400',
+              padding: '0 1rem'
             }}>
               Your voice matters. Report civic issues, track resolutions in real-time, 
               and connect directly with local government officials across India.
@@ -89,17 +97,19 @@ export default function LandingPage() {
               gap: '1rem', 
               justifyContent: 'center',
               flexWrap: 'wrap',
-              marginBottom: '4rem'
+              marginBottom: '3rem',
+              padding: '0 1rem'
             }}>
               <a 
                 href="/register" 
                 className="btn btn-primary" 
                 style={{ 
-                  padding: '1rem 2.5rem',
-                  fontSize: '1.1rem',
+                  padding: 'clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2.5rem)',
+                  fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
                   fontWeight: '600',
                   boxShadow: '0 10px 30px rgba(79, 70, 229, 0.3)',
-                  transition: 'all 0.3s'
+                  transition: 'all 0.3s',
+                  minWidth: '200px'
                 }}
                 onMouseOver={(e) => {
                   e.target.style.transform = 'translateY(-2px)';
@@ -116,12 +126,13 @@ export default function LandingPage() {
                 href="/about" 
                 className="btn" 
                 style={{ 
-                  padding: '1rem 2.5rem',
-                  fontSize: '1.1rem',
+                  padding: 'clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2.5rem)',
+                  fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
                   fontWeight: '600',
                   backgroundColor: 'white',
                   border: '2px solid var(--border)',
-                  transition: 'all 0.3s'
+                  transition: 'all 0.3s',
+                  minWidth: '160px'
                 }}
                 onMouseOver={(e) => {
                   e.target.style.borderColor = 'var(--primary)';
@@ -139,49 +150,52 @@ export default function LandingPage() {
             {/* Stats */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
-              gap: '2rem',
-              maxWidth: '600px',
-              margin: '0 auto'
+              gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
+              gap: 'clamp(1rem, 3vw, 2rem)',
+              maxWidth: '650px',
+              margin: '0 auto',
+              padding: '0 1rem'
             }}>
               <div>
                 <div style={{ 
-                  fontSize: '2.5rem', 
+                  fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', 
                   fontWeight: '800',
                   background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent'
                 }}>10K+</div>
                 <div style={{ 
-                  fontSize: '0.95rem', 
+                  fontSize: 'clamp(0.8rem, 1.5vw, 0.95rem)', 
                   color: 'var(--text-muted)',
                   fontWeight: '500'
                 }}>Active Citizens</div>
               </div>
               <div>
                 <div style={{ 
-                  fontSize: '2.5rem', 
+                  fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', 
                   fontWeight: '800',
                   background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                   WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent'
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
                 }}>5K+</div>
                 <div style={{ 
-                  fontSize: '0.95rem', 
+                  fontSize: 'clamp(0.8rem, 1.5vw, 0.95rem)', 
                   color: 'var(--text-muted)',
                   fontWeight: '500'
                 }}>Issues Resolved</div>
               </div>
               <div>
                 <div style={{ 
-                  fontSize: '2.5rem', 
+                  fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', 
                   fontWeight: '800',
                   background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                   WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent'
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
                 }}>150+</div>
                 <div style={{ 
-                  fontSize: '0.95rem', 
+                  fontSize: 'clamp(0.8rem, 1.5vw, 0.95rem)', 
                   color: 'var(--text-muted)',
                   fontWeight: '500'
                 }}>Cities Covered</div>
@@ -193,13 +207,13 @@ export default function LandingPage() {
 
       {/* Features Section */}
       <section style={{ 
-        padding: '6rem 0',
+        padding: 'clamp(3rem, 8vw, 6rem) 0',
         backgroundColor: 'white'
       }}>
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+          <div style={{ textAlign: 'center', marginBottom: 'clamp(2rem, 5vw, 4rem)' }}>
             <h2 style={{ 
-              fontSize: '2.5rem',
+              fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
               fontWeight: '700',
               marginBottom: '1rem',
               color: 'var(--text-main)'
@@ -207,10 +221,11 @@ export default function LandingPage() {
               How CiviConnect Works
             </h2>
             <p style={{ 
-              fontSize: '1.1rem',
+              fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
               color: 'var(--text-muted)',
               maxWidth: '600px',
-              margin: '0 auto'
+              margin: '0 auto',
+              padding: '0 1rem'
             }}>
               Simple, transparent, and effective civic engagement
             </p>
@@ -218,10 +233,11 @@ export default function LandingPage() {
 
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '2rem',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))',
+            gap: 'clamp(1.5rem, 3vw, 2rem)',
             maxWidth: '1100px',
-            margin: '0 auto'
+            margin: '0 auto',
+            padding: '0 1rem'
           }}>
             {/* Feature 1 */}
             <div style={{
@@ -375,7 +391,7 @@ export default function LandingPage() {
 
       {/* CTA Section */}
       <section style={{
-        padding: '6rem 0',
+        padding: 'clamp(3rem, 8vw, 6rem) 0',
         background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
         position: 'relative',
         overflow: 'hidden'
@@ -388,7 +404,8 @@ export default function LandingPage() {
           height: '600px',
           background: 'rgba(255, 255, 255, 0.1)',
           borderRadius: '50%',
-          filter: 'blur(100px)'
+          filter: 'blur(100px)',
+          pointerEvents: 'none'
         }}></div>
 
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
@@ -396,18 +413,19 @@ export default function LandingPage() {
             maxWidth: '700px',
             margin: '0 auto',
             textAlign: 'center',
-            color: 'white'
+            color: 'white',
+            padding: '0 1rem'
           }}>
             <h2 style={{ 
-              fontSize: '3rem',
+              fontSize: 'clamp(1.75rem, 5vw, 3rem)',
               fontWeight: '700',
               marginBottom: '1.5rem',
-              lineHeight: '1.2'
+              lineHeight: '1.25'
             }}>
               Ready to Make a Difference?
             </h2>
             <p style={{ 
-              fontSize: '1.2rem',
+              fontSize: 'clamp(1rem, 2vw, 1.2rem)',
               marginBottom: '2.5rem',
               opacity: '0.95',
               lineHeight: '1.7'
@@ -420,14 +438,15 @@ export default function LandingPage() {
                 href="/register" 
                 className="btn" 
                 style={{ 
-                  padding: '1rem 2.5rem',
-                  fontSize: '1.1rem',
+                  padding: 'clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2.5rem)',
+                  fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
                   fontWeight: '600',
                   backgroundColor: 'white',
                   color: 'var(--primary)',
                   border: 'none',
                   boxShadow: '0 10px 30px rgba(0, 0, 0, 0.2)',
-                  transition: 'all 0.3s'
+                  transition: 'all 0.3s',
+                  minWidth: '200px'
                 }}
                 onMouseOver={(e) => {
                   e.target.style.transform = 'translateY(-3px)';
@@ -444,13 +463,14 @@ export default function LandingPage() {
                 href="/login" 
                 className="btn" 
                 style={{ 
-                  padding: '1rem 2.5rem',
-                  fontSize: '1.1rem',
+                  padding: 'clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2.5rem)',
+                  fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
                   fontWeight: '600',
                   backgroundColor: 'transparent',
                   color: 'white',
                   border: '2px solid white',
-                  transition: 'all 0.3s'
+                  transition: 'all 0.3s',
+                  minWidth: '160px'
                 }}
                 onMouseOver={(e) => {
                   e.target.style.backgroundColor = 'white';
